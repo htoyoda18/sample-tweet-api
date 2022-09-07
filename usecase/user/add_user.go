@@ -13,7 +13,7 @@ func (uu userUseCase) AddUser(ctx *gorm.DB, params request.AddUsersReq) (*model.
 	log.Printf("AddUser")
 
 	// メールアドレスでユーザーを取得
-	selectUser, _ := uu.userRepository.ShowUser(&model.User{
+	selectUser, _ := uu.userRepository.ShowUser(ctx, &model.User{
 		Email: params.Email,
 	})
 
@@ -25,7 +25,7 @@ func (uu userUseCase) AddUser(ctx *gorm.DB, params request.AddUsersReq) (*model.
 	}
 
 	// ユーザーを追加
-	user, errCreate := uu.userRepository.AddUser(
+	user, errCreate := uu.userRepository.AddUser(ctx,
 		&model.User{
 			Name:     params.Name,
 			Email:    params.Email,

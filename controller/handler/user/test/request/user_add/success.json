@@ -1,0 +1,9 @@
+{
+    "url": "/v1/signup",
+    "method": "POST",
+    "body": {
+        "name": "豊田",
+        "email": "h.toyoda@aaaaa.com",
+        "password": "hogehoge"
+    }
+  }
