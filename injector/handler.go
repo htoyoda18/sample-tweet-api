@@ -10,7 +10,9 @@ type Handler struct {
 
 func NewHandler() *Handler {
 	usecase := NewUseCase()
-	UserHandler := user.NewUserHandler(usecase.UserUseCase)
+	service := NewService()
+
+	UserHandler := user.NewUserHandler(service.ApiContext, usecase.UserUseCase)
 
 	return &Handler{
 		UserHandler,
