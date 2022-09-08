@@ -26,7 +26,7 @@ type Configuration struct {
 
 func InitConfiguration() (Configuration, error) {
 	var conf Configuration
-	if err := envconfig.Process("attivita", &conf); err != nil {
+	if err := envconfig.Process("test", &conf); err != nil {
 		return conf, err
 	}
 
