@@ -1,11 +1,11 @@
 package test
 
 import (
-	"database/sql"
 	"log"
 
 	"github.com/go-testfixtures/testfixtures/v3"
-	"github.com/htoyoda18/sample-tweet-api/shared/config"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
 func InitFixture(pass string) error {
@@ -15,32 +15,41 @@ func InitFixture(pass string) error {
 }
 
 func createFixture(pass string) error {
-	var con config.Configuration
-	con, _ = config.InitConfiguration()
-
 	var (
-		db       *sql.DB
 		fixtures *testfixtures.Loader
 	)
 
-	// dbと接続
-	db, errDB := sql.Open("mysql", con.DBUserTest+":"+con.DBPassTest+"@tcp("+con.DBHost+":3306)/"+con.DBNameTest+"?parseTime=true")
-	if errDB != nil {
-		log.Fatal(errDB)
+	user := "webuser"
+	password := "webpass"
+	host := "localhost"
+	port := "3306"
+	database_name := "go_mysql8_test"
+
+	dbconf := user + ":" + password + "@tcp(" + host + ":" + port + ")/" + database_name + "?charset=utf8mb4"
+
+	db, err := gorm.Open(mysql.Open(dbconf), &gorm.Config{})
+	if err != nil {
+		return err
 	}
 
-	defer db.Close()
+	sqlDB, sqlDBErr := db.DB()
+	if sqlDBErr != nil {
+		return err
+	}
+
+	defer sqlDB.Close()
 
 	fixtures, fixturesErr := testfixtures.New(
-		testfixtures.Database(db),
+		testfixtures.Database(sqlDB),
 		testfixtures.Dialect("mysql"),
 		testfixtures.Directory(pass),
 	)
+
 	if fixturesErr != nil {
 		log.Fatal(fixturesErr)
 	}
 
-	err := fixtures.Load()
+	err = fixtures.Load()
 
 	return err
 }

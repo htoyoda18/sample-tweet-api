@@ -1,6 +1,7 @@
 package user_test
 
 import (
+	"log"
 	"os"
 	"testing"
 
@@ -15,11 +16,18 @@ import (
 
 var db *gorm.DB
 
+var fixturePass = "../../../test/fixtures/default"
 var requestPass = "./test/request"
 
 func TestMain(m *testing.M) {
 
 	con, _ := config.InitConfiguration()
+
+	err := helper.InitFixture(fixturePass)
+
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	// DBを定義
 	gormDB, sqlDB, _ := sharedDB.InitDB(con)

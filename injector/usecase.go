@@ -7,5 +7,12 @@ type UseCase struct {
 }
 
 func NewUseCase() *UseCase {
-	return &UseCase{}
+	infra := NewInfra()
+
+	UserUseCase := user.NewUserUseCase(
+		infra.UserPersistence,
+	)
+	return &UseCase{
+		UserUseCase,
+	}
 }

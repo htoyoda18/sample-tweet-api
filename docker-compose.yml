@@ -9,4 +9,4 @@ services:
       MYSQL_USER: 'webuser'
       MYSQL_PASSWORD: 'webpass'
       MYSQL_ROOT_PASSWORD: 'pass'
-      MYSQL_DATABASE: 'go_mysql8_development'
+      MYSQL_DATABASE: 'go_mysql8_test'
