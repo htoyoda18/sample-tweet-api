@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/htoyoda18/sample-tweet-api/golang/src/shared/config"
+	"github.com/htoyoda18/sample-tweet-api/golang/src/domain/model"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
-func InitDB(conf config.Configuration) (*gorm.DB, *sql.DB, error) {
+func InitDB() (*gorm.DB, *sql.DB, error) {
 	dbconf := fmt.Sprintf(
 		"%s:%s@tcp(db:3306)/%s?charset=utf8&parseTime=true",
 		os.Getenv("MYSQL_USER"),
@@ -24,10 +24,16 @@ func InitDB(conf config.Configuration) (*gorm.DB, *sql.DB, error) {
 		return nil, nil, err
 	}
 
+	migrate(db)
+
 	sqlDB, sqlDBErr := db.DB()
 	if sqlDBErr != nil {
 		return nil, nil, err
 	}
 
 	return db, sqlDB, nil
+}
+
+func migrate(db *gorm.DB) {
+	db.AutoMigrate(&model.User{})
 }

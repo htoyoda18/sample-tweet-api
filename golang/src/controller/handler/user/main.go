@@ -34,7 +34,7 @@ func (uh userHandler) AddUser(c *gin.Context) {
 
 	var params request.AddUsersReq
 
-	if err := c.ShouldBind(&params); err != nil {
+	if err := c.ShouldBindJSON(&params); err != nil {
 		log.Printf("Erorr AddUser")
 		c.AbortWithError(http.StatusBadRequest, err)
 		return

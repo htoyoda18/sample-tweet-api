@@ -18,7 +18,7 @@ func (uu userUseCase) AddUser(ctx *gorm.DB, params request.AddUsersReq) (*model.
 	})
 
 	// 既に登録しているアドレスの場合
-	if selectUser != nil {
+	if selectUser.ID != 0 {
 		err := errors.New("email is already exists")
 		log.Printf("AddUser email is already exists")
 		return nil, err

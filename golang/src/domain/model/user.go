@@ -9,5 +9,5 @@ type User struct {
 	Email    string `gorm:"unique_index" json:"email"`
 	Name     string `json:"name"`
 	Icon     string `json:"icon"`
-	Password string `json:"-" gorm:"-" sql:"-"`
+	Password string `json:"password"`
 }

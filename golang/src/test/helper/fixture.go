@@ -1,13 +1,10 @@
 package test
 
 import (
-	"fmt"
 	"log"
-	"os"
 
 	"github.com/go-testfixtures/testfixtures/v3"
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
+	sharedDB "github.com/htoyoda18/sample-tweet-api/golang/src/shared/db"
 )
 
 func InitFixture(pass string) error {
@@ -21,21 +18,11 @@ func createFixture(pass string) error {
 		fixtures *testfixtures.Loader
 	)
 
-	dbconf := fmt.Sprintf(
-		"%s:%s@tcp(db:3306)/%s?charset=utf8&parseTime=true",
-		os.Getenv("MYSQL_USER"),
-		os.Getenv("MYSQL_PASSWORD"),
-		os.Getenv("MYSQL_DATABASE"),
-	)
-
-	db, err := gorm.Open(mysql.Open(dbconf), &gorm.Config{})
-	if err != nil {
-		return err
-	}
+	db, sqlDB, _ := sharedDB.InitDB()
 
 	sqlDB, sqlDBErr := db.DB()
 	if sqlDBErr != nil {
-		return err
+		return sqlDBErr
 	}
 
 	defer sqlDB.Close()
@@ -50,7 +37,7 @@ func createFixture(pass string) error {
 		log.Fatal(fixturesErr)
 	}
 
-	err = fixtures.Load()
+	err := fixtures.Load()
 
 	return err
 }

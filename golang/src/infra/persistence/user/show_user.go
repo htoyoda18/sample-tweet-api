@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"github.com/htoyoda18/sample-tweet-api/golang/src/domain/model"
+	sharedDB "github.com/htoyoda18/sample-tweet-api/golang/src/shared/db"
 	"gorm.io/gorm"
 )
 
@@ -15,11 +16,13 @@ func (UserPersistence) ShowUser(
 
 	user := &model.User{}
 
-	if err := db.
+	gormDB, sqlDB, _ := sharedDB.InitDB()
+	defer sqlDB.Close()
+
+	if err := gormDB.
 		Where(where).
 		First(user).Error; err != nil {
 		log.Printf("ShowUser Erorr %s", err)
-		return nil, err
 	}
 
 	return user, nil
