@@ -13,6 +13,10 @@ func InitFixture(pass string) error {
 	return err
 }
 
+func TeardownFixture(pass string) {
+	createFixture(pass)
+}
+
 func createFixture(pass string) error {
 	var (
 		fixtures *testfixtures.Loader

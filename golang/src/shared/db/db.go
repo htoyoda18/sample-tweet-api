@@ -36,4 +36,5 @@ func InitDB() (*gorm.DB, *sql.DB, error) {
 
 func migrate(db *gorm.DB) {
 	db.AutoMigrate(&model.User{})
+	db.AutoMigrate(&model.RefreshToken{})
 }
