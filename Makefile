@@ -7,3 +7,7 @@ setup:
 .PHONY: migrate-create
 migrate-create: 
 	goose create ${ARG} sql
+
+.PHONY: test
+test:
+	docker exec -it go go test golang/src/controller/handler/user/main_test.go
