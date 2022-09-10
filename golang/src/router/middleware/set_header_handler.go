@@ -20,5 +20,7 @@ func SetHeaderHandler() gin.HandlerFunc {
 		}
 
 		c.Set("db", db)
+
+		c.Next()
 	}
 }

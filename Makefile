@@ -1,5 +1,4 @@
 include $(PWD)/golang/src/controller/handler/Makefile
-include $(PWD)/golang/src/Makefile
 
 ARG = table
 
