@@ -38,6 +38,7 @@ func TestMain(m *testing.M) {
 }
 
 func TestAddUser(t *testing.T) {
+	//
 	//ユーザが正しく作成されるのか？
 	t.Run("Success", func(t *testing.T) {
 		req := helper.Request(t, requestPass+"/add_user/success.json", 1)
