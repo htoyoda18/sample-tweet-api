@@ -1,0 +1,15 @@
+- id: 1
+  user_id: 1
+  Text: "初めてのツイート"
+
+- id: 2
+  user_id: 1
+  Text: "今日も一日頑張ろう!"
+
+- id: 3
+  user_id: 2
+  Text: "最後のツイート"
+
+- id: 4
+  user_id: 2
+  Text: "明日頑張ろう"

@@ -1,9 +1,13 @@
 package injector
 
-import "github.com/htoyoda18/sample-tweet-api/golang/src/usecase/user"
+import (
+	"github.com/htoyoda18/sample-tweet-api/golang/src/usecase/tweet"
+	"github.com/htoyoda18/sample-tweet-api/golang/src/usecase/user"
+)
 
 type UseCase struct {
-	UserUseCase user.UserUseCase
+	UserUseCase  user.UserUseCase
+	TweetUseCase tweet.TweetUseCase
 }
 
 func NewUseCase() *UseCase {
@@ -12,7 +16,12 @@ func NewUseCase() *UseCase {
 	UserUseCase := user.NewUserUseCase(
 		infra.UserPersistence,
 	)
+	TweetUseCase := tweet.NewTweetUseCase(
+		infra.TweetPersistence,
+	)
+
 	return &UseCase{
 		UserUseCase,
+		TweetUseCase,
 	}
 }

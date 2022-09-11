@@ -1,0 +1,7 @@
+{
+    "url": "/v1/tweet",
+    "method": "POST",
+    "body": {
+        "text": "今日も一日お疲れ様!"
+    }
+  }
