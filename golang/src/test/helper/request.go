@@ -9,6 +9,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"github.com/htoyoda18/sample-tweet-api/golang/src/domain/model"
+	"github.com/htoyoda18/sample-tweet-api/golang/src/injector"
 	"github.com/htoyoda18/sample-tweet-api/golang/src/router"
 )
 
@@ -41,9 +43,29 @@ func Request(t *testing.T, pass string, index ...int) *httptest.ResponseRecorder
 		return nil
 	}
 
+	token, errToken := bearerToken()
+
+	if errToken != nil {
+		t.Errorf("request fail to token error %s", errToken.Error())
+		return nil
+	}
+
+	req.Header.Add("Authorization", token)
+
 	r.ServeHTTP(w, req)
 
 	return w
+}
+
+// token取得
+func bearerToken() (string, error) {
+	service := injector.NewService()
+
+	jwt := service.AuthCore.NewJwt(&model.User{
+		ID: 1,
+	})
+
+	return "Bearer " + jwt, nil
 }
 
 func buffer(str string) *bytes.Buffer {

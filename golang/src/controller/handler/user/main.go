@@ -3,15 +3,18 @@ package user
 import (
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/htoyoda18/sample-tweet-api/golang/src/controller/handler/user/request"
+	"github.com/htoyoda18/sample-tweet-api/golang/src/domain/model"
 	"github.com/htoyoda18/sample-tweet-api/golang/src/service/context"
 	"github.com/htoyoda18/sample-tweet-api/golang/src/usecase/user"
 )
 
 type UserHandler interface {
 	AddUser(*gin.Context)
+	DeleteUser(*gin.Context)
 }
 
 type userHandler struct {
@@ -55,4 +58,33 @@ func (uh userHandler) AddUser(c *gin.Context) {
 	}
 
 	c.JSON(200, user)
+}
+
+func (uh userHandler) DeleteUser(c *gin.Context) {
+	log.Printf("DeleteUser")
+
+	id, errID := strconv.ParseUint(c.Param("id"), 10, 32)
+
+	if errID != nil {
+		log.Println("Erorr DeleteUser: ", errID)
+		c.AbortWithStatusJSON(http.StatusBadRequest, errID)
+		return
+	}
+
+	ctx, ctxErr := uh.ctx.ContextUser(c)
+
+	if ctxErr != nil {
+		log.Printf("Erorr DeleteUser")
+		c.AbortWithError(http.StatusBadRequest, ctxErr)
+		return
+	}
+
+	err := uh.userUseCase.DeleteUser(ctx, model.UserId(id))
+	if err != nil {
+		log.Printf("Erorr DeleteUser")
+		c.AbortWithError(http.StatusBadRequest, err)
+		return
+	}
+
+	c.Status(200)
 }

@@ -15,4 +15,9 @@ type UserRepository interface {
 		db *gorm.DB,
 		user *model.User,
 	) (*model.User, error)
+
+	DeleteUser(
+		db *gorm.DB,
+		user *model.User,
+	) error
 }
