@@ -100,3 +100,18 @@ func TestUpdateUser(t *testing.T) {
 		})
 	})
 }
+
+func TestShowUser(t *testing.T) {
+	t.Run("Success", func(t *testing.T) {
+		req := helper.Request(t, requestPass+"/show_user/success.json", 1)
+		res := response.UserResponse(req)
+
+		assert.Equal(t, res.Email, "hogehoge@dd22.com")
+		assert.Equal(t, res.Name, "鈴木次郎")
+		assert.Equal(t, res.Password, "")
+
+		t.Cleanup(func() {
+			helper.TeardownFixture(fixturePass)
+		})
+	})
+}

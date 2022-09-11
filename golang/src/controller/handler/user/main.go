@@ -16,6 +16,7 @@ type UserHandler interface {
 	AddUser(*gin.Context)
 	DeleteUser(*gin.Context)
 	UpdateUser(*gin.Context)
+	ShowUser(*gin.Context)
 }
 
 type userHandler struct {
@@ -126,6 +127,41 @@ func (uh userHandler) UpdateUser(c *gin.Context) {
 	if err != nil {
 		log.Printf("Erorr UpdateUser")
 		c.AbortWithError(http.StatusBadRequest, err)
+		return
+	}
+
+	c.JSON(200, user)
+}
+
+func (uh userHandler) ShowUser(c *gin.Context) {
+	log.Printf("ShowUser")
+
+	id, errID := strconv.ParseUint(c.Param("id"), 10, 32)
+
+	if errID != nil {
+		log.Println("Erorr ShowUser: ", errID)
+		c.AbortWithStatusJSON(http.StatusBadRequest, errID)
+		return
+	}
+
+	ctx, ctxErr := uh.ctx.ContextUser(c)
+
+	if ctxErr != nil {
+		log.Printf("Erorr ShowUser")
+		c.AbortWithError(http.StatusBadRequest, ctxErr)
+		return
+	}
+
+	user, err := uh.userUseCase.ShowUser(
+		ctx.DB,
+		&model.User{
+			ID: model.UserId(id),
+		},
+	)
+
+	if err != nil {
+		log.Println("Erorr ShowUser: ", errID)
+		c.AbortWithStatusJSON(http.StatusBadRequest, errID)
 		return
 	}
 
