@@ -37,10 +37,21 @@ func TestMain(m *testing.M) {
 func TestLogin(t *testing.T) {
 	//ユーザが正しく作成されるのか？
 	t.Run("Success", func(t *testing.T) {
-		req := helper.Request(t, requestPass+"/login/login_success.json")
+		req := helper.Request(t, requestPass+"/login/success.json")
 		res := sharedRes.NilResponse(req)
 
 		assert.Equal(t, res, nil)
+
+		t.Cleanup(func() {
+			helper.TeardownFixture(fixturePass)
+		})
+	})
+
+	t.Run("FailToPassword", func(t *testing.T) {
+		req := helper.Request(t, requestPass+"/login/fail_to_password.json")
+		code := sharedRes.ErrorResponseCode(req)
+
+		assert.Equal(t, code, 400)
 
 		t.Cleanup(func() {
 			helper.TeardownFixture(fixturePass)

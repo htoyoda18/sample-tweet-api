@@ -14,8 +14,15 @@ func NewHandler() *Handler {
 	usecase := NewUseCase()
 	service := NewService()
 
-	UserHandler := user.NewUserHandler(service.ApiContext, usecase.UserUseCase)
-	LoginHandler := login.NewLoginHandler(service.ApiContext, service.AuthCore)
+	UserHandler := user.NewUserHandler(
+		service.ApiContext,
+		usecase.UserUseCase,
+	)
+	LoginHandler := login.NewLoginHandler(
+		service.ApiContext,
+		service.AuthCore,
+		usecase.UserUseCase,
+	)
 
 	return &Handler{
 		UserHandler,
