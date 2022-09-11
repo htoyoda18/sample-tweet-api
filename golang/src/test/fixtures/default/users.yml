@@ -2,3 +2,8 @@
   email: "hogehoge@dd.com"
   name: "佐藤太郎"
   password: "paddword12345"
+
+- id: 2
+  email: "hogehoge@dd.com"
+  name: "佐藤太郎"
+  password: "paddword12345"
