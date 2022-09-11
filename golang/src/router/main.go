@@ -25,6 +25,12 @@ func SetupRouter() *gin.Engine {
 			user.DELETE("/:id", handler.UserHandler.DeleteUser)
 			user.PATCH("/:id", handler.UserHandler.UpdateUser)
 		}
+
+		tweet := v1.Group("tweet")
+		tweet.Use(middleware.AuthMiddleware())
+		{
+			tweet.POST("", handler.TweetHandler.AddTweet)
+		}
 	}
 
 	return r

@@ -46,6 +46,7 @@ func (uh userHandler) AddUser(c *gin.Context) {
 	}
 
 	ctx, ctxErr := uh.ctx.Context(c)
+
 	if ctxErr != nil {
 		log.Printf("Erorr AddUser")
 		c.AbortWithError(http.StatusBadRequest, ctxErr)
