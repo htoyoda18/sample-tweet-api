@@ -2,7 +2,8 @@ name: CI Test
 
 on: pull_request
 
-ci-test-handler:
+jobs:
+  ci-test-handler:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
