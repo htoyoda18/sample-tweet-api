@@ -1,4 +1,4 @@
-package user
+package response
 
 import (
 	"encoding/json"

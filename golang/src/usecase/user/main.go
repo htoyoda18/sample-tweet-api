@@ -13,6 +13,11 @@ type UserUseCase interface {
 		ctx *gorm.DB,
 		params request.AddUsersReq,
 	) (*model.User, error)
+
+	ShowUser(
+		ctx *gorm.DB,
+		user *model.User,
+	) (*model.User, error)
 }
 
 type userUseCase struct {

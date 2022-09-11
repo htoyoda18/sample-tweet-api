@@ -1,0 +1,8 @@
+{
+    "url": "/v1/login",
+    "method": "POST",
+    "body": {
+      "email": "hogehoge@dd.com",
+      "password": "paddword12345"
+    }
+  }

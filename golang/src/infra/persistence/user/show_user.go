@@ -19,6 +19,7 @@ func (UserPersistence) ShowUser(
 		Where(where).
 		First(user).Error; err != nil {
 		log.Printf("ShowUser Erorr %s", err)
+		return nil, err
 	}
 
 	return user, nil
