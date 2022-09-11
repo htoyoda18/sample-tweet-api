@@ -20,4 +20,10 @@ type UserRepository interface {
 		db *gorm.DB,
 		user *model.User,
 	) error
+
+	UpdateUser(
+		db *gorm.DB,
+		id model.UserId,
+		user *model.User,
+	) (*model.User, error)
 }

@@ -15,6 +15,7 @@ import (
 type UserHandler interface {
 	AddUser(*gin.Context)
 	DeleteUser(*gin.Context)
+	UpdateUser(*gin.Context)
 }
 
 type userHandler struct {
@@ -87,4 +88,46 @@ func (uh userHandler) DeleteUser(c *gin.Context) {
 	}
 
 	c.Status(200)
+}
+
+func (uh userHandler) UpdateUser(c *gin.Context) {
+	log.Printf("UpdateUser")
+
+	var params request.UpdateUserReq
+	if err := c.ShouldBindJSON(&params); err != nil {
+		log.Printf("Erorr AddUser")
+		c.AbortWithError(http.StatusBadRequest, err)
+		return
+	}
+
+	id, errID := strconv.ParseUint(c.Param("id"), 10, 32)
+
+	if errID != nil {
+		log.Println("Erorr DeleteUser: ", errID)
+		c.AbortWithStatusJSON(http.StatusBadRequest, errID)
+		return
+	}
+
+	ctx, ctxErr := uh.ctx.ContextUser(c)
+
+	if ctxErr != nil {
+		log.Printf("Erorr UpdateUser")
+		c.AbortWithError(http.StatusBadRequest, ctxErr)
+		return
+	}
+
+	// ユーザーを更新
+	user, err := uh.userUseCase.UpdateUser(
+		ctx,
+		model.UserId(id),
+		params,
+	)
+
+	if err != nil {
+		log.Printf("Erorr UpdateUser")
+		c.AbortWithError(http.StatusBadRequest, err)
+		return
+	}
+
+	c.JSON(200, user)
 }
