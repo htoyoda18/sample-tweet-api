@@ -40,7 +40,7 @@ func TestMain(m *testing.M) {
 func TestAddUser(t *testing.T) {
 	//ユーザが正しく作成されるのか？
 	t.Run("Success", func(t *testing.T) {
-		req := helper.Request(t, requestPass+"/add_users/success.json", 1)
+		req := helper.Request(t, requestPass+"/add_user/success.json", 1)
 		res := response.UserResponse(req)
 
 		assert.Equal(t, res.Name, "豊田")
@@ -108,7 +108,6 @@ func TestShowUser(t *testing.T) {
 
 		assert.Equal(t, res.Email, "hogehoge@dd22.com")
 		assert.Equal(t, res.Name, "鈴木次郎")
-		assert.Equal(t, res.Password, "")
 
 		t.Cleanup(func() {
 			helper.TeardownFixture(fixturePass)
