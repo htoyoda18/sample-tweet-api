@@ -18,7 +18,7 @@ APIのテストを回すことができます
 make test NAME="handlerのディレクトリ名" FN="メソッド名"
 ```
 
-Directory Structure
+### Directory Structure
 ```
 .
 .
