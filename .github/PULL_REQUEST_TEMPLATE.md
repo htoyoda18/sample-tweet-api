@@ -2,7 +2,7 @@
 
 xxxx
 
-## 詳細
+## 関連issue
 
 xxxx
 
