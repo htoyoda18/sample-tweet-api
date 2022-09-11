@@ -41,7 +41,7 @@ func TestAddUser(t *testing.T) {
 	//ユーザが正しく作成されるのか？
 	t.Run("Success", func(t *testing.T) {
 		req := helper.Request(t, requestPass+"/add_users/success.json", 1)
-		res := response.AddUsersResponse(req)
+		res := response.UserResponse(req)
 
 		assert.Equal(t, res.Name, "豊田")
 		assert.Equal(t, res.Email, "h.toyoda@aaaaa.com")
@@ -79,6 +79,21 @@ func TestDeleteUser(t *testing.T) {
 
 		assert.Equal(t, len(user), 2)
 		assert.Equal(t, resCode, 400)
+
+		t.Cleanup(func() {
+			helper.TeardownFixture(fixturePass)
+		})
+	})
+}
+
+func TestUpdateUser(t *testing.T) {
+	t.Run("Success", func(t *testing.T) {
+		req := helper.Request(t, requestPass+"/update_user/success.json", 1)
+		res := response.UserResponse(req)
+
+		assert.Equal(t, res.Email, "t.suzuki@22222.com")
+		assert.Equal(t, res.Name, "鈴木太郎")
+		assert.Equal(t, res.Password, "password222")
 
 		t.Cleanup(func() {
 			helper.TeardownFixture(fixturePass)

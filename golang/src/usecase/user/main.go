@@ -24,6 +24,12 @@ type UserUseCase interface {
 		ctx *context.ContextUser,
 		userId model.UserId,
 	) error
+
+	UpdateUser(
+		ctx *context.ContextUser,
+		userId model.UserId,
+		params request.UpdateUserReq,
+	) (*model.User, error)
 }
 
 type userUseCase struct {

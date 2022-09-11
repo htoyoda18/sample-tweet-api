@@ -1,0 +1,9 @@
+{
+    "url": "/v1/user/1",
+    "method": "PATCH",
+    "body": {
+        "name": "鈴木太郎",
+        "email": "t.suzuki@22222.com",
+        "password": "password222"
+    }
+  }
