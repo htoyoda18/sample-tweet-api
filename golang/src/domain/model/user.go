@@ -10,4 +10,6 @@ type User struct {
 	Name     string `json:"name"`
 	Icon     string `json:"icon"`
 	Password string `json:"password"`
+
+	Tweet *Tweet `json:"tweet"`
 }
