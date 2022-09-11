@@ -19,7 +19,6 @@ func NewService() *Service {
 
 	authCore := core.NewAuthCore(
 		infra.UserPersistence,
-		infra.RefreshTokenPersistence,
 	)
 
 	return &Service{

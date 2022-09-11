@@ -10,16 +10,13 @@ type AuthCore interface {
 }
 
 type authCore struct {
-	userRepository         repository.UserRepository
-	refreshTokenRepository repository.RefreshTokenRepository
+	userRepository repository.UserRepository
 }
 
 func NewAuthCore(
 	userRepository repository.UserRepository,
-	refreshTokenRepository repository.RefreshTokenRepository,
 ) AuthCore {
 	return &authCore{
 		userRepository,
-		refreshTokenRepository,
 	}
 }
