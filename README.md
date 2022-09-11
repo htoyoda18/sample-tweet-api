@@ -2,7 +2,7 @@
 簡易的なTwitterに近い REST APIです(未完成)
 
 ### ER図
-[![Image from Gyazo](https://i.gyazo.com/9f6d3044cd47abebbf6f7f0a993ce52f.jpg)](https://gyazo.com/9f6d3044cd47abebbf6f7f0a993ce52f)
+[![Image from Gyazo](https://i.gyazo.com/c23b47b5d527088bce3e7cb265020d83.png)](https://gyazo.com/c23b47b5d527088bce3e7cb265020d83)
 
 ### Development Commands
 
