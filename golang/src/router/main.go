@@ -2,8 +2,11 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
+	_ "github.com/htoyoda18/sample-tweet-api/golang/src/docs" // swag initで生成したdocs。
 	"github.com/htoyoda18/sample-tweet-api/golang/src/injector"
 	"github.com/htoyoda18/sample-tweet-api/golang/src/router/middleware"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func SetupRouter() *gin.Engine {
@@ -15,6 +18,7 @@ func SetupRouter() *gin.Engine {
 
 	v1 := r.Group("v1")
 	{
+
 		v1.POST("/signup", handler.UserHandler.AddUser)
 		v1.POST("/login", handler.LoginHandler.Login)
 
@@ -32,6 +36,8 @@ func SetupRouter() *gin.Engine {
 			tweet.POST("", handler.TweetHandler.AddTweet)
 		}
 	}
+
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	return r
 }

@@ -1,0 +1,11 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "簡易的なTwitterに近い REST APIです",
+        "title": "Tweet API",
+        "contact": {}
+    },
+    "host": "localhost:8080",
+    "basePath": "/v1",
+    "paths": {}
+}

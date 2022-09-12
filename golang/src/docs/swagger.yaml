@@ -1,0 +1,8 @@
+basePath: /v1
+host: localhost:8080
+info:
+  contact: {}
+  description: 簡易的なTwitterに近い REST APIです
+  title: Tweet API
+paths: {}
+swagger: "2.0"
