@@ -1,26 +1,29 @@
 # sample-tweet-api
 簡易的なTwitterに近い REST APIです(未完成)
 
-### ER図
+## ER図
+
 [![Image from Gyazo](https://i.gyazo.com/c23b47b5d527088bce3e7cb265020d83.png)](https://gyazo.com/c23b47b5d527088bce3e7cb265020d83)
 
-### Development Commands
+## Development Commands
 
-Setup <br>
-Dockerが立ち上がって開発を始められます<br>
-また、swaggoによりswaggerが生成されます <br>
-http://localhost:8080/swagger/index.html にアクセスしていただくとAPIのドキュメントが見れます
+### Setup <br>
 ```
 make setup
 ```
+Dockerが立ち上がって開発を始められます
 
-Test <br>
-APIのテストを回すことができます
+また、swaggoによりswaggerが生成されます
+
+http://localhost:8080/swagger/index.html にアクセスしていただくとAPIのドキュメントが見れます
+
+### Test <br>
 ```
 make test NAME="handlerのディレクトリ名" FN="メソッド名"
 ```
+APIのテストを回すことができます
 
-### Directory Structure
+## Directory Structure
 ```
 .
 .
