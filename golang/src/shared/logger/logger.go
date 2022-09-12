@@ -10,28 +10,42 @@ var log *zap.Logger
 func Setup() {
 	var err error
 
-	config := zap.NewProductionConfig()
+	cfg := zap.Config{
+		Level:             zap.NewAtomicLevelAt(zap.DebugLevel),
+		Development:       false,
+		DisableStacktrace: true,
+		Encoding:          "console",
+		OutputPaths:       []string{"stdout"},
+		ErrorOutputPaths:  []string{"stderr"},
+		EncoderConfig: zapcore.EncoderConfig{
+			LevelKey:      "severity",
+			NameKey:       "logger",
+			CallerKey:     "caller",
+			StacktraceKey: "stack_trace",
+			TimeKey:       "time",
+			MessageKey:    "message",
+			LineEnding:    zapcore.DefaultLineEnding,
+			EncodeTime:    zapcore.RFC3339NanoTimeEncoder,
+			EncodeLevel:   zapcore.CapitalColorLevelEncoder,
+			EncodeCaller:  zapcore.ShortCallerEncoder,
+		},
+	}
 
-	encoderConfig := zap.NewProductionEncoderConfig()
-	encoderConfig.TimeKey = "timestamp"
-	encoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
-	config.EncoderConfig = encoderConfig
-
-	log, err = config.Build(zap.AddCallerSkip(1))
+	log, err = cfg.Build()
 
 	if err != nil {
 		panic(err)
 	}
 }
 
-func Info(message string, fields ...zap.Field) {
-	log.Info(message, fields...)
+func Info(message string, args ...interface{}) {
+	log.Sugar().Infof(message, args)
 }
 
-func Debug(message string, fields ...zap.Field) {
-	log.Debug(message, fields...)
+func Debug(message string, args ...interface{}) {
+	log.Sugar().Debugf(message, args)
 }
 
-func Error(message string, fields ...zap.Field) {
-	log.Error(message, fields...)
+func Error(message string, args ...interface{}) {
+	log.Sugar().Errorf(message, args)
 }

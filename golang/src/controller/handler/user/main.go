@@ -1,7 +1,6 @@
 package user
 
 import (
-	"log"
 	"net/http"
 	"strconv"
 
@@ -9,6 +8,7 @@ import (
 	"github.com/htoyoda18/sample-tweet-api/golang/src/controller/handler/user/request"
 	"github.com/htoyoda18/sample-tweet-api/golang/src/domain/model"
 	"github.com/htoyoda18/sample-tweet-api/golang/src/service/context"
+	"github.com/htoyoda18/sample-tweet-api/golang/src/shared/logger"
 	"github.com/htoyoda18/sample-tweet-api/golang/src/usecase/user"
 )
 
@@ -43,12 +43,12 @@ func NewUserHandler(
 // @Failure 500
 // @router /signup [POST]
 func (uh userHandler) AddUser(c *gin.Context) {
-	log.Printf("AddUser")
+	logger.Info("AddUser")
 
 	var params request.AddUsersReq
 
 	if err := c.ShouldBindJSON(&params); err != nil {
-		log.Printf("Erorr AddUser")
+		logger.Error("AddUser", err)
 		c.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
@@ -56,14 +56,14 @@ func (uh userHandler) AddUser(c *gin.Context) {
 	ctx, ctxErr := uh.ctx.Context(c)
 
 	if ctxErr != nil {
-		log.Printf("Erorr AddUser")
+		logger.Error("AddUser", ctxErr)
 		c.AbortWithError(http.StatusBadRequest, ctxErr)
 		return
 	}
 
 	user, err := uh.userUseCase.AddUser(ctx, params)
 	if err != nil {
-		log.Printf("Erorr AddUser")
+		logger.Error("AddUser", err)
 		c.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
@@ -80,12 +80,12 @@ func (uh userHandler) AddUser(c *gin.Context) {
 // @Failure 500
 // @router /user/:id [DELETE]
 func (uh userHandler) DeleteUser(c *gin.Context) {
-	log.Printf("DeleteUser")
+	logger.Info("DeleteUser")
 
 	id, errID := strconv.ParseUint(c.Param("id"), 10, 32)
 
 	if errID != nil {
-		log.Println("Erorr DeleteUser: ", errID)
+		logger.Error("DeleteUser", errID)
 		c.AbortWithStatusJSON(http.StatusBadRequest, errID)
 		return
 	}
@@ -93,14 +93,14 @@ func (uh userHandler) DeleteUser(c *gin.Context) {
 	ctx, ctxErr := uh.ctx.ContextUser(c)
 
 	if ctxErr != nil {
-		log.Printf("Erorr DeleteUser")
+		logger.Error("DeleteUser", ctxErr)
 		c.AbortWithError(http.StatusBadRequest, ctxErr)
 		return
 	}
 
 	err := uh.userUseCase.DeleteUser(ctx, model.UserId(id))
 	if err != nil {
-		log.Printf("Erorr DeleteUser")
+		logger.Error("DeleteUser", err)
 		c.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
@@ -117,11 +117,11 @@ func (uh userHandler) DeleteUser(c *gin.Context) {
 // @Failure 500
 // @router /user/:id [PATCH]
 func (uh userHandler) UpdateUser(c *gin.Context) {
-	log.Printf("UpdateUser")
+	logger.Info("UpdateUser")
 
 	var params request.UpdateUserReq
 	if err := c.ShouldBindJSON(&params); err != nil {
-		log.Printf("Erorr AddUser")
+		logger.Error("UpdateUser", err)
 		c.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
@@ -129,7 +129,7 @@ func (uh userHandler) UpdateUser(c *gin.Context) {
 	id, errID := strconv.ParseUint(c.Param("id"), 10, 32)
 
 	if errID != nil {
-		log.Println("Erorr DeleteUser: ", errID)
+		logger.Error("UpdateUser", errID)
 		c.AbortWithStatusJSON(http.StatusBadRequest, errID)
 		return
 	}
@@ -137,7 +137,7 @@ func (uh userHandler) UpdateUser(c *gin.Context) {
 	ctx, ctxErr := uh.ctx.ContextUser(c)
 
 	if ctxErr != nil {
-		log.Printf("Erorr UpdateUser")
+		logger.Error("UpdateUser", ctxErr)
 		c.AbortWithError(http.StatusBadRequest, ctxErr)
 		return
 	}
@@ -150,7 +150,7 @@ func (uh userHandler) UpdateUser(c *gin.Context) {
 	)
 
 	if err != nil {
-		log.Printf("Erorr UpdateUser")
+		logger.Error("UpdateUser", err)
 		c.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
@@ -167,12 +167,12 @@ func (uh userHandler) UpdateUser(c *gin.Context) {
 // @Failure 500
 // @router /user/:id [GET]
 func (uh userHandler) ShowUser(c *gin.Context) {
-	log.Printf("ShowUser")
+	logger.Info("ShowUser")
 
 	id, errID := strconv.ParseUint(c.Param("id"), 10, 32)
 
 	if errID != nil {
-		log.Println("Erorr ShowUser: ", errID)
+		logger.Error("ShowUser", errID)
 		c.AbortWithStatusJSON(http.StatusBadRequest, errID)
 		return
 	}
@@ -180,7 +180,7 @@ func (uh userHandler) ShowUser(c *gin.Context) {
 	ctx, ctxErr := uh.ctx.ContextUser(c)
 
 	if ctxErr != nil {
-		log.Printf("Erorr ShowUser")
+		logger.Error("ShowUser", ctxErr)
 		c.AbortWithError(http.StatusBadRequest, ctxErr)
 		return
 	}
@@ -193,7 +193,7 @@ func (uh userHandler) ShowUser(c *gin.Context) {
 	)
 
 	if err != nil {
-		log.Println("Erorr ShowUser: ", errID)
+		logger.Error("ShowUser", err)
 		c.AbortWithStatusJSON(http.StatusBadRequest, errID)
 		return
 	}

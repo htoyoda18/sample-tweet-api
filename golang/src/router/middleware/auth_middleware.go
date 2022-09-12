@@ -1,12 +1,12 @@
 package middleware
 
 import (
-	"log"
 	"net/http"
 	"strings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt"
+	"github.com/htoyoda18/sample-tweet-api/golang/src/shared/logger"
 )
 
 func AuthMiddleware() gin.HandlerFunc {
@@ -25,7 +25,7 @@ func AuthMiddleware() gin.HandlerFunc {
 		if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 			c.Set("user_id", int(claims["user_id"].(float64)))
 		} else {
-			log.Println("AuthMiddleware Erorr: ", err)
+			logger.Error("AuthMiddleware", err)
 			c.AbortWithStatusJSON(http.StatusUnauthorized, err)
 		}
 	}

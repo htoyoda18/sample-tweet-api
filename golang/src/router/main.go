@@ -14,8 +14,8 @@ func SetupRouter() *gin.Engine {
 
 	r := gin.Default()
 
-	r.Use(middleware.SetHeaderHandler())
 	r.Use(middleware.LoggerMiddleware())
+	r.Use(middleware.SetHeaderHandler())
 
 	v1 := r.Group("v1")
 	{

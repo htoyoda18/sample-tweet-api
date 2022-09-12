@@ -1,12 +1,12 @@
 package tweet
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	request "github.com/htoyoda18/sample-tweet-api/golang/src/controller/handler/tweet/request"
 	"github.com/htoyoda18/sample-tweet-api/golang/src/service/context"
+	"github.com/htoyoda18/sample-tweet-api/golang/src/shared/logger"
 	"github.com/htoyoda18/sample-tweet-api/golang/src/usecase/tweet"
 )
 
@@ -38,12 +38,12 @@ func NewTweetHandler(
 // @Failure 500
 // @router /tweet [POST]
 func (th tweetHandler) AddTweet(c *gin.Context) {
-	log.Printf("AddTweet")
+	logger.Info("AddTweet")
 
 	var params request.AddTweetReq
 
 	if err := c.ShouldBindJSON(&params); err != nil {
-		log.Printf("Erorr AddTweet")
+		logger.Error("AddTweet", err)
 		c.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
@@ -51,14 +51,14 @@ func (th tweetHandler) AddTweet(c *gin.Context) {
 	ctx, ctxErr := th.ctx.ContextUser(c)
 
 	if ctxErr != nil {
-		log.Printf("Erorr AddTweet")
+		logger.Error("AddTweet", ctxErr)
 		c.AbortWithError(http.StatusBadRequest, ctxErr)
 		return
 	}
 
 	tweet, err := th.tweetUseCase.AddTweet(ctx, params)
 	if err != nil {
-		log.Printf("Erorr AddTweet")
+		logger.Error("AddTweet", err)
 		c.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
