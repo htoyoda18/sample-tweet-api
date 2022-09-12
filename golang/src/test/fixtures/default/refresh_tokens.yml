@@ -1,6 +1,0 @@
-- id: 1
-  user_id: 1
-  token: YXVRLCsIt7KhTMNNbtERTNLckoCNfgGUlccXklG0b50XL2iYLle3KwQ6DdQvGnxzcYJDZRh2LsG1aMXk3HlYHw==
-  expires_at: 2022-12-31 23:59:59
-  created_at: RAW=NOW()
-  updated_at: RAW=NOW()

@@ -9,6 +9,7 @@ import (
 	"github.com/htoyoda18/sample-tweet-api/golang/src/domain/model"
 	"github.com/htoyoda18/sample-tweet-api/golang/src/service/context"
 	"github.com/htoyoda18/sample-tweet-api/golang/src/service/core"
+	"github.com/htoyoda18/sample-tweet-api/golang/src/shared/logger"
 	"github.com/htoyoda18/sample-tweet-api/golang/src/usecase/user"
 )
 
@@ -44,6 +45,7 @@ func NewLoginHandler(
 // @router /login [POST]
 func (lh loginHandler) Login(c *gin.Context) {
 	log.Printf("Login")
+	logger.Info("Login")
 
 	var params request.LoginReq
 

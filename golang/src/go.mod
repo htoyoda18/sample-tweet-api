@@ -11,6 +11,9 @@ require (
 	github.com/swaggo/files v0.0.0-20220728132757-551d4a08d97a
 	github.com/swaggo/gin-swagger v1.5.3
 	github.com/swaggo/swag v1.8.5
+	go.uber.org/atomic v1.10.0 // indirect
+	go.uber.org/multierr v1.8.0 // indirect
+	go.uber.org/zap v1.23.0 // indirect
 	gopkg.in/go-playground/assert.v1 v1.2.1
 	gorm.io/driver/mysql v1.3.6
 	gorm.io/gorm v1.23.8
