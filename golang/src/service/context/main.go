@@ -1,13 +1,12 @@
 package context
 
 import (
-	"log"
-
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 
 	"github.com/htoyoda18/sample-tweet-api/golang/src/domain/model"
 	"github.com/htoyoda18/sample-tweet-api/golang/src/domain/repository"
+	"github.com/htoyoda18/sample-tweet-api/golang/src/shared/logger"
 )
 
 type ContextUser struct {
@@ -33,7 +32,7 @@ func NewContextApi(
 }
 
 func (contextApi) Context(c *gin.Context) (*gorm.DB, error) {
-	log.Println("Context")
+	logger.Info("Context")
 
 	db := c.MustGet("db").(*gorm.DB)
 
@@ -41,7 +40,7 @@ func (contextApi) Context(c *gin.Context) (*gorm.DB, error) {
 }
 
 func (contextApi) ContextUser(c *gin.Context) (*ContextUser, error) {
-	log.Println("ContextUser")
+	logger.Info("ContextUser")
 
 	userid := c.MustGet("user_id").(int)
 	db := c.MustGet("db").(*gorm.DB)

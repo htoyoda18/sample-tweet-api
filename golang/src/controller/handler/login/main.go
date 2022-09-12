@@ -1,7 +1,6 @@
 package login
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -9,6 +8,7 @@ import (
 	"github.com/htoyoda18/sample-tweet-api/golang/src/domain/model"
 	"github.com/htoyoda18/sample-tweet-api/golang/src/service/context"
 	"github.com/htoyoda18/sample-tweet-api/golang/src/service/core"
+	"github.com/htoyoda18/sample-tweet-api/golang/src/shared/logger"
 	"github.com/htoyoda18/sample-tweet-api/golang/src/usecase/user"
 )
 
@@ -43,19 +43,19 @@ func NewLoginHandler(
 // @Failure 500
 // @router /login [POST]
 func (lh loginHandler) Login(c *gin.Context) {
-	log.Printf("Login")
+	logger.Info("Login")
 
 	var params request.LoginReq
 
 	if err := c.ShouldBindJSON(&params); err != nil {
-		log.Printf("Erorr AddUser")
+		logger.Error("Login", err)
 		c.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
 
 	ctx, ctxErr := lh.ctx.Context(c)
 	if ctxErr != nil {
-		log.Println("Erorr Login", ctxErr)
+		logger.Error("Login", ctxErr)
 		c.AbortWithError(http.StatusBadRequest, ctxErr)
 		return
 	}
@@ -66,7 +66,7 @@ func (lh loginHandler) Login(c *gin.Context) {
 	})
 
 	if err != nil {
-		log.Println("Erorr Login", err)
+		logger.Error("Login", err)
 		c.AbortWithError(http.StatusBadRequest, err)
 		return
 	}

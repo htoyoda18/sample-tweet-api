@@ -2,17 +2,17 @@ package user
 
 import (
 	"errors"
-	"log"
 
 	"github.com/htoyoda18/sample-tweet-api/golang/src/domain/model"
 	"github.com/htoyoda18/sample-tweet-api/golang/src/service/context"
+	"github.com/htoyoda18/sample-tweet-api/golang/src/shared/logger"
 )
 
 func (uu userUseCase) DeleteUser(
 	ctx *context.ContextUser,
 	userId model.UserId,
 ) error {
-	log.Printf("DeleteUser userId by %d", userId)
+	logger.Info("DeleteUser userId by ", userId)
 
 	db := ctx.DB
 
@@ -20,13 +20,13 @@ func (uu userUseCase) DeleteUser(
 		ID: userId,
 	})
 	if err != nil {
-		log.Println("Erorr DeleteUser", err)
+		logger.Error("DeleteUser", err)
 		return err
 	}
 
 	if user.ID != ctx.UserId {
 		err := errors.New("fail to other user")
-		log.Println("Erorr DeleteUser", err)
+		logger.Error("DeleteUser", err)
 		return err
 	}
 
@@ -34,7 +34,7 @@ func (uu userUseCase) DeleteUser(
 		ID: userId,
 	})
 	if UserErr != nil {
-		log.Println("Erorr DeleteUser", UserErr)
+		logger.Error("DeleteUser", UserErr)
 		return err
 	}
 
