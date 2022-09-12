@@ -10,7 +10,7 @@ var log *zap.Logger
 func Setup() {
 	var err error
 
-	cfg := zap.Config{
+	config := zap.Config{
 		Level:             zap.NewAtomicLevelAt(zap.DebugLevel),
 		Development:       false,
 		DisableStacktrace: true,
@@ -31,7 +31,7 @@ func Setup() {
 		},
 	}
 
-	log, err = cfg.Build()
+	log, err = config.Build(zap.AddCallerSkip(1))
 
 	if err != nil {
 		panic(err)
@@ -39,13 +39,13 @@ func Setup() {
 }
 
 func Info(message string, args ...interface{}) {
-	log.Sugar().Infof(message, args)
+	log.Sugar().Infof("%s %s", message, args)
 }
 
 func Debug(message string, args ...interface{}) {
-	log.Sugar().Debugf(message, args)
+	log.Sugar().Debugf("%s %s", message, args)
 }
 
 func Error(message string, args ...interface{}) {
-	log.Sugar().Errorf(message, args)
+	log.Sugar().Errorf("%s %s", message, args)
 }
