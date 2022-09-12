@@ -29,6 +29,14 @@ func NewTweetHandler(
 	}
 }
 
+// AddTweet ツイート投稿のAPI
+// @Summary ツイート投稿のAPI
+// @description ツイート投稿のAPI
+// @param request body request.AddTweetReq true "request body"
+// @Success 200
+// @Failure 400
+// @Failure 500
+// @router /tweet [POST]
 func (th tweetHandler) AddTweet(c *gin.Context) {
 	log.Printf("AddTweet")
 
