@@ -7,7 +7,9 @@
 ### Development Commands
 
 Setup <br>
-Dockerが立ち上がって開発を始められます
+Dockerが立ち上がって開発を始められます<br>
+また、swaggoによりswaggerが生成されます <br>
+http://localhost:8080/swagger/index.html にアクセスしていただくとAPIのドキュメントが見れます
 ```
 make setup
 ```
