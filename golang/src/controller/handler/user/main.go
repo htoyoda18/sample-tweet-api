@@ -34,6 +34,14 @@ func NewUserHandler(
 	}
 }
 
+// AddUser ユーザ作成のAPI
+// @Summary ユーザ作成のAPI
+// @description ユーザ作成のAPI
+// @param request body request.AddUsersReq true "request body"
+// @Success 200
+// @Failure 400
+// @Failure 500
+// @router /signup [POST]
 func (uh userHandler) AddUser(c *gin.Context) {
 	log.Printf("AddUser")
 
@@ -63,6 +71,14 @@ func (uh userHandler) AddUser(c *gin.Context) {
 	c.JSON(200, user)
 }
 
+// AddUser ユーザ削除のAPI
+// @Summary ユーザ削除のAPI
+// @description ユーザ削除のAPI
+// @param id path int true "userID"
+// @Success 200
+// @Failure 400
+// @Failure 500
+// @router /user/:id [DELETE]
 func (uh userHandler) DeleteUser(c *gin.Context) {
 	log.Printf("DeleteUser")
 
@@ -92,6 +108,14 @@ func (uh userHandler) DeleteUser(c *gin.Context) {
 	c.Status(200)
 }
 
+// AddUser ユーザ更新のAPI
+// @Summary ユーザ更新のAPI
+// @description ユーザ更新のAPI
+// @param id path int true "userID"
+// @Success 200
+// @Failure 400
+// @Failure 500
+// @router /user/:id [PATCH]
 func (uh userHandler) UpdateUser(c *gin.Context) {
 	log.Printf("UpdateUser")
 
@@ -134,6 +158,14 @@ func (uh userHandler) UpdateUser(c *gin.Context) {
 	c.JSON(200, user)
 }
 
+// AddUser ユーザ閲覧のAPI
+// @Summary ユーザ閲覧のAPI
+// @description ユーザ閲覧のAPI
+// @param id path int true "userID"
+// @Success 200
+// @Failure 400
+// @Failure 500
+// @router /user/:id [GET]
 func (uh userHandler) ShowUser(c *gin.Context) {
 	log.Printf("ShowUser")
 

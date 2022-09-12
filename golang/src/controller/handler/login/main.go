@@ -34,6 +34,14 @@ func NewLoginHandler(
 	}
 }
 
+// Login ログイン用のAPI
+// @Summary ログイン用のAPI
+// @description ログイン用のAPI
+// @param request body request.LoginReq true "request body"
+// @Success 200
+// @Failure 400
+// @Failure 500
+// @router /login [POST]
 func (lh loginHandler) Login(c *gin.Context) {
 	log.Printf("Login")
 

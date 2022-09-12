@@ -1,8 +1,143 @@
 basePath: /v1
+definitions:
+  request.AddUsersReq:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        minLength: 8
+        type: string
+    required:
+    - email
+    - name
+    - password
+    type: object
+  request.LoginReq:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  tweet.AddTweetReq:
+    properties:
+      text:
+        type: string
+    required:
+    - text
+    type: object
 host: localhost:8080
 info:
   contact: {}
   description: 簡易的なTwitterに近い REST APIです
   title: Tweet API
-paths: {}
+paths:
+  /login:
+    post:
+      description: ログイン用のAPI
+      parameters:
+      - description: request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.LoginReq'
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: ログイン用のAPI
+  /signup:
+    post:
+      description: ユーザ作成のAPI
+      parameters:
+      - description: request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.AddUsersReq'
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: ユーザ作成のAPI
+  /tweet:
+    post:
+      description: ツイート投稿のAPI
+      parameters:
+      - description: request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/tweet.AddTweetReq'
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: ツイート投稿のAPI
+  /user/:id:
+    delete:
+      description: ユーザ削除のAPI
+      parameters:
+      - description: userID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: ユーザ削除のAPI
+    get:
+      description: ユーザ閲覧のAPI
+      parameters:
+      - description: userID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: ユーザ閲覧のAPI
+    patch:
+      description: ユーザ更新のAPI
+      parameters:
+      - description: userID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: ユーザ更新のAPI
 swagger: "2.0"
